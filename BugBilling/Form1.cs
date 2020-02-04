@@ -107,6 +107,7 @@ namespace BugBilling {
             donebox.CheckState = CheckState.Unchecked;
             ScreenBox.CheckState = CheckState.Unchecked;
             ScreenBox.Visible = false;
+
         }
 
         //Start here
