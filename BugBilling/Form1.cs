@@ -1,20 +1,16 @@
-﻿using Microsoft.Win32;
+﻿using Ionic.Zip;
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ionic.Zip;
 
 namespace BugBilling {
-    public partial class MainUI : Form {
 
+    public partial class MainUI : Form {
         private string WorkDirectory = string.Empty; //for export logs
         private string GameDir = string.Empty; //Get current game path via regedit and save here :3
         private string GameLogPath = string.Empty; //GameLog last file path
@@ -49,7 +45,6 @@ namespace BugBilling {
                 }
                 if (launcherLogFile == null) {
                     MessageBox.Show("No logs in .launcher_log directory", "Warning");
-
                 } else {
                     // Find last file
                     GameLogPath = gLogFile.FullName.ToString();
@@ -58,7 +53,6 @@ namespace BugBilling {
                     GameLogCheckbox.CheckState = CheckState.Checked;
                     launcherLogFile.CopyTo(Path.Combine(WorkDirectory, launcherLogFile.Name), true);
                     LauncherLogsCheckbox.CheckState = CheckState.Checked;
-
                 }
             } catch (Exception ex) {
                 MessageBox.Show($"Can't find logs.\n{ex.Message}");
@@ -66,7 +60,7 @@ namespace BugBilling {
         }
 
         /// <summary>
-        /// Packing archive 
+        /// Packing archive
         /// </summary>
         private void Archiving() {
             using (ZipFile zip = new ZipFile()) {
@@ -82,8 +76,8 @@ namespace BugBilling {
                 MessageBox.Show($@"Done, archive saved as {WorkDirectory}.zip", "Done");
                 ExploreFile($"{WorkDirectory}.zip");
             }
-            
         }
+
         /// <summary>
         /// No comment xD
         /// </summary>
@@ -94,8 +88,8 @@ namespace BugBilling {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
-
         }
+
         /// <summary>
         /// clear checkboxes
         /// </summary>
@@ -107,7 +101,6 @@ namespace BugBilling {
             donebox.CheckState = CheckState.Unchecked;
             ScreenBox.CheckState = CheckState.Unchecked;
             ScreenBox.Visible = false;
-
         }
 
         //Start here
@@ -145,10 +138,7 @@ namespace BugBilling {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
-
         }
-           
-
 
         /// <summary>
         /// Setup Game folder
@@ -214,6 +204,7 @@ namespace BugBilling {
                 Archiving();
             }
         }
+
         public bool ExploreFile(string filePath) {
             if (!File.Exists(filePath)) {
                 return false;
@@ -223,7 +214,6 @@ namespace BugBilling {
             Process.Start("explorer.exe", string.Format("/select,\"{0}\"", filePath));
             button1.Enabled = true;
             return true;
-            
         }
 
         /// <summary>
@@ -235,7 +225,4 @@ namespace BugBilling {
             Process.Start("https://t.me/WarThunderBlog");
         }
     }
-
-
 }
-
